@@ -1,9 +1,8 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/products(.*)", "destination": "/api/index.js" },
-    { "source": "/cart(.*)", "destination": "/api/index.js" },
-    { "source": "/checkout(.*)", "destination": "/api/index.js" },
-    { "source": "/(.*)", "destination": "/public/$1" }
+    { "source": "/products(.*)", "destination": "server.js" },
+    { "source": "/cart(.*)", "destination": "server.js" },
+    { "source": "/checkout(.*)", "destination": "server.js" }
   ]
 }
