@@ -1,27 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
   "rewrites": [
-    {
-      "source": "/products(.*)",
-      "destination": "server.js"
-    },
-    {
-      "source": "/cart(.*)",
-      "destination": "server.js"
-    },
-    {
-      "source": "/checkout(.*)",
-      "destination": "server.js"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/public/$1"
-    }
+    { "source": "/products(.*)", "destination": "/api/index.js" },
+    { "source": "/cart(.*)", "destination": "/api/index.js" },
+    { "source": "/checkout(.*)", "destination": "/api/index.js" },
+    { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }
