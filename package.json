@@ -67,6 +67,7 @@
     "execa": "^5.1.1",
     "exit-x": "^0.2.2",
     "expect": "^30.3.0",
+    "express": "^5.2.1",
     "fast-json-stable-stringify": "^2.1.0",
     "fast-safe-stringify": "^2.1.1",
     "fb-watchman": "^2.0.2",
