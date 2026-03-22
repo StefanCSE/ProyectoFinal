@@ -1,12 +1,6 @@
+require("./setup");
 const request = require("supertest");
 const app = require("../server");
-const { saveProducts, saveCart } = require("../db/helpers");
-
-// Antes de cada test limpiamos la base de datos
-beforeEach(() => {
-  saveProducts([]);
-  saveCart([]);
-});
 
 describe("Endpoints de Productos", () => {
   test("POST /products - Debe crear un producto correctamente", async () => {
@@ -17,7 +11,7 @@ describe("Endpoints de Productos", () => {
     });
 
     expect(res.statusCode).toBe(201);
-    expect(res.body.product).toHaveProperty("id");
+    expect(res.body.product).toHaveProperty("_id");
     expect(res.body.product.name).toBe("Laptop");
     expect(res.body.product.price).toBe(999.99);
     expect(res.body.product.stock).toBe(10);
@@ -33,7 +27,6 @@ describe("Endpoints de Productos", () => {
   });
 
   test("GET /products - Debe devolver la lista de productos", async () => {
-    // Primero creamos un producto
     await request(app).post("/products").send({
       name: "Mouse",
       price: 25.0,

@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
+const connectDB = require("./db/connection");
 
 const productsRouter = require("./routes/products");
 const cartRouter = require("./routes/cart");
@@ -15,11 +17,18 @@ app.use("/products", productsRouter);
 app.use("/cart", cartRouter);
 app.use("/checkout", checkoutRouter);
 
-// Iniciar el servidor localmente
+// Servidor local de prueba
 if (require.main === module) {
-  app.listen(3001, () => {
-    console.log(`Server de prueba: http://localhost:3001/index.html`);
-  });
+  connectDB()
+    .then(() => {
+      app.listen(3001, () => {
+        console.log(`Servidor corriendo en http://localhost:3001/index.html`);
+      });
+    })
+    .catch((err) => {
+      console.error("Error al conectar con MongoDB:", err.message);
+      process.exit(1);
+    });
 }
 
 module.exports = app;

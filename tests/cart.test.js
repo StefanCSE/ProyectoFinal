@@ -1,23 +1,20 @@
+require("./setup");
 const request = require("supertest");
 const app = require("../server");
-const { saveProducts, saveCart } = require("../db/helpers");
-
-beforeEach(() => {
-  saveProducts([]);
-  saveCart([]);
-});
 
 describe("Endpoints del Carrito", () => {
   test("POST /cart - Debe agregar un producto al carrito", async () => {
     // Creamos un producto primero
-    await request(app).post("/products").send({
+    const productRes = await request(app).post("/products").send({
       name: "Teclado",
       price: 45.0,
       stock: 20,
     });
 
+    const productId = productRes.body.product._id;
+
     const res = await request(app).post("/cart").send({
-      productId: 1,
+      productId,
       quantity: 2,
     });
 
@@ -28,8 +25,11 @@ describe("Endpoints del Carrito", () => {
   });
 
   test("POST /cart - Debe fallar si el producto no existe", async () => {
+    // ID de MongoDB valido pero inexistente
+    const fakeId = "64a1b2c3d4e5f6a7b8c9d0e1";
+
     const res = await request(app).post("/cart").send({
-      productId: 999,
+      productId: fakeId,
       quantity: 1,
     });
 
@@ -38,14 +38,16 @@ describe("Endpoints del Carrito", () => {
   });
 
   test("POST /cart - Debe fallar si no hay stock suficiente", async () => {
-    await request(app).post("/products").send({
+    const productRes = await request(app).post("/products").send({
       name: "Monitor",
       price: 200.0,
       stock: 1,
     });
 
+    const productId = productRes.body.product._id;
+
     const res = await request(app).post("/cart").send({
-      productId: 1,
+      productId,
       quantity: 99,
     });
 
@@ -54,13 +56,14 @@ describe("Endpoints del Carrito", () => {
   });
 
   test("GET /cart - Debe devolver el contenido del carrito", async () => {
-    await request(app).post("/products").send({
+    const productRes = await request(app).post("/products").send({
       name: "Auriculares",
       price: 60.0,
       stock: 5,
     });
 
-    await request(app).post("/cart").send({ productId: 1, quantity: 1 });
+    const productId = productRes.body.product._id;
+    await request(app).post("/cart").send({ productId, quantity: 1 });
 
     const res = await request(app).get("/cart");
 

@@ -1,11 +1,24 @@
-// Clase que representa un producto en la tienda
-class Product {
-  constructor(id, name, price, stock) {
-    this.id = id;
-    this.name = name;
-    this.price = parseFloat(price);
-    this.stock = parseInt(stock);
-  }
-}
+const mongoose = require("mongoose");
 
-module.exports = Product;
+const productSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "El nombre es obligatorio"],
+      trim: true,
+    },
+    price: {
+      type: Number,
+      required: [true, "El precio es obligatorio"],
+      min: [0, "El precio no puede ser negativo"],
+    },
+    stock: {
+      type: Number,
+      required: [true, "El stock es obligatorio"],
+      min: [0, "El stock no puede ser negativo"],
+    },
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.models.Product || mongoose.model("Product", productSchema);
