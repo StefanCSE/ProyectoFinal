@@ -12,6 +12,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+connectDB()
+
 // Registrar las rutas
 app.use("/products", productsRouter);
 app.use("/cart", cartRouter);
@@ -19,16 +21,9 @@ app.use("/checkout", checkoutRouter);
 
 // Servidor local de prueba
 if (require.main === module) {
-  connectDB()
-    .then(() => {
-      app.listen(3001, () => {
-        console.log(`Servidor corriendo en http://localhost:3001/index.html`);
-      });
-    })
-    .catch((err) => {
-      console.error("Error al conectar con MongoDB:", err.message);
-      process.exit(1);
-    });
+  app.listen(3001, () => {
+    console.log(`Servidor corriendo en http://localhost:3001/index.html`);
+  });
 }
 
 module.exports = app;
