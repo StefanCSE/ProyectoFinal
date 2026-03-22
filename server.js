@@ -1,19 +1,18 @@
 require("dotenv").config();
 const express = require("express");
 const path = require("path");
-const connectDB = require("../db/connection");
+const connectDB = require("./db/connection");
 
-const productsRouter = require("../routes/products");
-const cartRouter = require("../routes/cart");
-const checkoutRouter = require("../routes/checkout");
+const productsRouter = require("routes/products");
+const cartRouter = require("routes/cart");
+const checkoutRouter = require("routes/checkout");
 
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "../public")));
 
 connectDB().catch(err => {
-    console.error("Fallo crítico en conexión DB:", err);
+    console.error("Fallo conexion DB:", err);
 });
 
 // Registrar las rutas
