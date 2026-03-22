@@ -4,21 +4,51 @@
   <meta charset="UTF-8" />
   <title>Tienda API - Pruebas</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-    h1 { border-bottom: 2px solid #333; padding-bottom: 10px; }
-    h2 { margin-top: 30px; color: #444; }
-    input, button { padding: 8px; margin: 4px; font-size: 14px; }
-    button { background: #333; color: white; border: none; cursor: pointer; border-radius: 4px; }
-    button:hover { background: #555; }
-    pre { background: #f4f4f4; padding: 15px; border-radius: 4px; overflow-x: auto; white-space: pre-wrap; }
-    .seccion { border: 1px solid #ddd; padding: 15px; margin-bottom: 20px; border-radius: 6px; }
+    body { 
+      font-family: Arial, sans-serif; 
+      max-width: 800px; 
+      margin: 40px auto; 
+      padding: 0 20px; }
+    h1 { 
+      border-bottom: 2px solid #333; 
+      padding-bottom: 10px; }
+    h2 { 
+      margin-top: 30px; 
+      color: #444; 
+    }
+    input, button { 
+      padding: 8px; 
+      margin: 4px; 
+      font-size: 14px; 
+    }
+    button { 
+      background: #333; 
+      color: white; 
+      border: none; 
+      cursor: pointer; 
+      border-radius: 4px; 
+    }
+    button:hover { 
+      background: #555; 
+    }
+    pre { 
+      background: #f4f4f4; 
+      padding: 15px; 
+      border-radius: 4px; 
+      overflow-x: auto; 
+      white-space: pre-wrap; 
+    }
+    .seccion { 
+      border: 1px solid #ddd; 
+      padding: 15px; 
+      margin-bottom: 20px; 
+      border-radius: 6px; 
+    }
   </style>
 </head>
 <body>
 
-  <h1>Tienda API - Pagina de Prueba</h1>
-
-  <!-- CREAR PRODUCTO -->
+  <h1>Tienda API</h1>
   <div class="seccion">
     <h2>POST /products - Crear producto</h2>
     <input type="text" id="prod-name" placeholder="Nombre del producto" />
@@ -27,15 +57,11 @@
     <button onclick="crearProducto()">Crear Producto</button>
     <pre id="res-crear-prod">---</pre>
   </div>
-
-  <!-- VER PRODUCTOS -->
   <div class="seccion">
     <h2>GET /products - Ver todos los productos</h2>
     <button onclick="verProductos()">Ver Productos</button>
     <pre id="res-ver-prod">---</pre>
   </div>
-
-  <!-- AGREGAR AL CARRITO -->
   <div class="seccion">
     <h2>POST /cart - Agregar al carrito</h2>
     <input type="number" id="cart-product-id" placeholder="ID del producto" />
@@ -43,21 +69,16 @@
     <button onclick="agregarAlCarrito()">Agregar al Carrito</button>
     <pre id="res-agregar-cart">---</pre>
   </div>
-
-  <!-- VER CARRITO -->
   <div class="seccion">
     <h2>GET /cart - Ver carrito</h2>
     <button onclick="verCarrito()">Ver Carrito</button>
     <pre id="res-ver-cart">---</pre>
   </div>
-
-  <!-- CHECKOUT -->
   <div class="seccion">
     <h2>POST /checkout - Realizar pago</h2>
     <button onclick="hacerCheckout()">Pagar</button>
     <pre id="res-checkout">---</pre>
   </div>
-
   <script>
     const BASE = "http://localhost:3001";
 
@@ -109,6 +130,5 @@
       document.getElementById("res-checkout").textContent = JSON.stringify(data, null, 2);
     }
   </script>
-
 </body>
 </html>
