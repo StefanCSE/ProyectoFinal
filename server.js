@@ -12,7 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-connectDB()
+connectDB().catch(err => {
+    console.error("Fallo crítico en conexión DB:", err);
+});
 
 // Registrar las rutas
 app.use("/products", productsRouter);
